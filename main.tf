@@ -21,7 +21,7 @@ resource "google_artifact_registry_repository" "artifact-repo" {
   lifecycle {
     ignore_changes = [labels]
   }
-   depends_on = [ google_project_iam_binding.network_binding4 ]
+   depends_on = [ google_project_service.artifactregistry,google_project_iam_binding.network_binding4 ]
 }
 data "google_project" "service_project3" {
   project_id = var.project_id
