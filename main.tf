@@ -3,6 +3,7 @@ resource "google_project_service" "artifactregistry" {
   project = var.project_id
   service = "artifactregistry.googleapis.com"
   disable_on_destroy = false
+  depends_on = [google_project_service.artifactregistry]
 }
 
 resource "google_artifact_registry_repository" "artifact-repo" {
@@ -21,7 +22,7 @@ resource "google_artifact_registry_repository" "artifact-repo" {
   lifecycle {
     ignore_changes = [labels]
   }
-   depends_on = [ google_project_service.artifactregistry,google_project_iam_binding.network_binding4 ]
+   
 }
 data "google_project" "service_project3" {
   project_id = var.project_id
@@ -31,10 +32,12 @@ resource "google_project_iam_binding" "network_binding4" {
   lifecycle {
     ignore_changes = [ members ]
   }
+  
   project = var.project_id
   role    = "roles/cloudkms.cryptoKeyEncrypterDecrypter"
   members = [
     "serviceAccount:service-${data.google_project.service_project3.number}@gcp-sa-artifactregistry.iam.gserviceaccount.com",
   ]
+  depends_on = [ google_project_service.artifactregistry ]
 }
 
