@@ -1,5 +1,6 @@
 resource "google_project_service" "artifactregistry" {
-  project = "gcp-test-temp-dev-364572"
+  provider = google-beta
+  project = var.project_id
   service = "artifactregistry.googleapis.com"
   disable_on_destroy = false
 }
