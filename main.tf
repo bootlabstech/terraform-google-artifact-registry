@@ -1,3 +1,9 @@
+resource "google_project_service" "artifactregistry" {
+  project = "gcp-test-temp-dev-364572"
+  service = "artifactregistry.googleapis.com"
+  disable_on_destroy = false
+}
+
 resource "google_artifact_registry_repository" "artifact-repo" {
   count         = var.no_of_repos
   repository_id = var.name_of_repos[count.index]
