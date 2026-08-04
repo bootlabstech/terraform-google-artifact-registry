@@ -1,9 +1,7 @@
-resource "google_project_service" "artifactregistry" {
-  provider = google-beta
-  project = var.project_id
-  service = "artifactregistry.googleapis.com"
+resource "google_project_service" "artifact_registry" {
+  project            = var.project_id
+  service            = "artifactregistry.googleapis.com"
   disable_on_destroy = false
-  depends_on = [google_project_service.artifactregistry]
 }
 
 resource "google_artifact_registry_repository" "artifact-repo" {
@@ -22,7 +20,7 @@ resource "google_artifact_registry_repository" "artifact-repo" {
   lifecycle {
     ignore_changes = [labels]
   }
-   
+   depends_on = [google_project_service.artifact_registry,google_project_iam_binding.network_binding4]
 }
 data "google_project" "service_project3" {
   project_id = var.project_id
@@ -38,6 +36,5 @@ resource "google_project_iam_binding" "network_binding4" {
   members = [
     "serviceAccount:service-${data.google_project.service_project3.number}@gcp-sa-artifactregistry.iam.gserviceaccount.com",
   ]
-  depends_on = [ google_project_service.artifactregistry ]
+  depends_on = [ google_project_service.artifact_registry ]
 }
-
