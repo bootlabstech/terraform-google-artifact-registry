@@ -36,5 +36,4 @@ resource "google_project_iam_binding" "network_binding4" {
   members = [
     "serviceAccount:service-${data.google_project.service_project3.number}@gcp-sa-artifactregistry.iam.gserviceaccount.com",
   ]
-  depends_on = [ google_project_service.artifact_registry ]
 }
