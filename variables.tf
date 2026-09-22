@@ -19,10 +19,7 @@ variable "description" {
   description = "The user-provided description of the repository."
   default     = ["Default description"]
 }
-variable "kms_key_name" {
-  type        = string
-  description = "Name of the kms key artifact_registry_repository"
-}
+
 variable "format" {
   type        = string
   description = "The format of packages that are stored in the repository.eg Docker Image Manifest V2, Schema 1, Docker Image Manifest V2, Schema 2,Open Container Initiative (OCI)"
